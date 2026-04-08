@@ -113,7 +113,7 @@ Expected output:
 
 ### Step 3 — Verify data in the database
 
-Open pgAdmin at http://localhost:5050 and log in with `admin@dewcis.com / adminpass`.
+Open pgAdmin at http://localhost:5050 and log in 
 Add server: host=`postgres`, port=5432, db=`archivedb`, user=`archiveuser`, pass=`archivepass`.
 
 Run this SQL in the query tool:
@@ -123,20 +123,20 @@ Run this SQL in the query tool:
 SELECT id, group_name, status, total_moved, total_skipped, total_errors, duration_sec
 FROM archive_runs;
 
-![alt text](<Screenshot from 2026-04-08 16-03-45.png>)
-
 -- Confirm file events were written
 SELECT username, source, destination, status, occurred_at
 FROM archive_events
 WHERE run_id = 1
 ORDER BY occurred_at;
 
-![alt text](<Screenshot from 2026-04-08 16-04-15.png>)
-
 -- Confirm events were written progressively (not all at the same microsecond)
 SELECT MIN(occurred_at), MAX(occurred_at), COUNT(*)
 FROM archive_events WHERE run_id = 1;
 ```
+
+![alt text](<Screenshot from 2026-04-08 16-03-45.png>)
+
+![alt text](<Screenshot from 2026-04-08 16-04-15.png>)
 
 ### Step 4 — Start the FastAPI service
 

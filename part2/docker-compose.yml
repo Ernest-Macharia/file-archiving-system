@@ -6,7 +6,7 @@ services:
     environment:
       LDAP_ORGANISATION:    "Dew CIS"
       LDAP_DOMAIN:          "dewcis.com"
-      LDAP_ADMIN_PASSWORD:  "adminpass"
+      LDAP_ADMIN_PASSWORD:  ""
     ports:
       - "3389:389"
     volumes:
@@ -15,7 +15,7 @@ services:
     healthcheck:
       test: ["CMD", "ldapsearch", "-x", "-H", "ldap://localhost",
              "-b", "dc=dewcis,dc=com", "-D", "cn=admin,dc=dewcis,dc=com",
-             "-w", "adminpass"]
+             "-w", ""]
       interval: 10s
       timeout: 5s
       retries: 10
