@@ -1,0 +1,41 @@
+services:
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB:       archivedb
+      POSTGRES_USER:     archiveuser
+      POSTGRES_PASSWORD: archivepass
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U archiveuser -d archivedb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL:    admin@dewcis.com
+      PGADMIN_DEFAULT_PASSWORD: adminpass
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  testenv:
+    image: debian:bookworm-slim
+    command: bash /workspace/setup.sh
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pgdata:

@@ -1,0 +1,111 @@
+dn: ou=groups,dc=dewcis,dc=com
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=users,dc=dewcis,dc=com
+objectClass: organizationalUnit
+ou: users
+
+dn: uid=alice,ou=users,dc=dewcis,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: Alice Mwangi
+sn: Mwangi
+uid: alice
+uidNumber: 1001
+gidNumber: 2001
+homeDirectory: /home/alice
+userPassword: alice123
+
+dn: uid=bob,ou=users,dc=dewcis,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: Bob Otieno
+sn: Otieno
+uid: bob
+uidNumber: 1002
+gidNumber: 2001
+homeDirectory: /home/bob
+userPassword: bob123
+
+dn: uid=carol,ou=users,dc=dewcis,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: Carol Njeri
+sn: Njeri
+uid: carol
+uidNumber: 1003
+gidNumber: 2002
+homeDirectory: /home/carol
+userPassword: carol123
+
+dn: uid=david,ou=users,dc=dewcis,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: David Kamau
+sn: Kamau
+uid: david
+uidNumber: 1004
+gidNumber: 2002
+homeDirectory: /home/david
+userPassword: david123
+
+dn: uid=eve,ou=users,dc=dewcis,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: Eve Wanjiku
+sn: Wanjiku
+uid: eve
+uidNumber: 1005
+gidNumber: 2003
+homeDirectory: /home/eve
+userPassword: eve123
+
+dn: uid=frank,ou=users,dc=dewcis,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: Frank Mutua
+sn: Mutua
+uid: frank
+uidNumber: 1006
+gidNumber: 2003
+homeDirectory: /home/frank
+userPassword: frank123
+
+dn: uid=grace,ou=users,dc=dewcis,dc=com
+objectClass: inetOrgPerson
+objectClass: posixAccount
+cn: Grace Achieng
+sn: Achieng
+uid: grace
+uidNumber: 1007
+gidNumber: 2004
+homeDirectory: /home/grace
+userPassword: grace123
+
+dn: cn=developers,ou=groups,dc=dewcis,dc=com
+objectClass: posixGroup
+cn: developers
+gidNumber: 2001
+memberUid: alice
+memberUid: bob
+
+dn: cn=ops,ou=groups,dc=dewcis,dc=com
+objectClass: posixGroup
+cn: ops
+gidNumber: 2002
+memberUid: carol
+memberUid: david
+
+dn: cn=finance,ou=groups,dc=dewcis,dc=com
+objectClass: posixGroup
+cn: finance
+gidNumber: 2003
+memberUid: eve
+memberUid: frank
+
+dn: cn=hr,ou=groups,dc=dewcis,dc=com
+objectClass: posixGroup
+cn: hr
+gidNumber: 2004
+memberUid: grace
