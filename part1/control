@@ -1,9 +1,0 @@
-Package: archive-files
-Version: 1.0
-Architecture: all
-Maintainer: Candidate <candidate@dewcis.com>
-Depends: python3, python3-psycopg2
-Description: File archiving script for Linux group members
- Archives files owned by members of a specified Linux group
- to a configurable archive directory, persisting all events
- to a PostgreSQL database.
