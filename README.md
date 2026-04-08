@@ -187,6 +187,9 @@ curl -i http://localhost:8000/runs/99999
 open http://localhost:8000/docs
 ```
 
+![alt text](<Screenshot from 2026-04-08 16-26-25.png>)
+![alt text](<Screenshot from 2026-04-08 16-27-28.png>)
+
 ### Step 5 — Open the dashboard
 
 Navigate to: **http://localhost:8000/**
