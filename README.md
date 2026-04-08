@@ -123,11 +123,15 @@ Run this SQL in the query tool:
 SELECT id, group_name, status, total_moved, total_skipped, total_errors, duration_sec
 FROM archive_runs;
 
+![alt text](<Screenshot from 2026-04-08 16-03-45.png>)
+
 -- Confirm file events were written
 SELECT username, source, destination, status, occurred_at
 FROM archive_events
 WHERE run_id = 1
 ORDER BY occurred_at;
+
+![alt text](<Screenshot from 2026-04-08 16-04-15.png>)
 
 -- Confirm events were written progressively (not all at the same microsecond)
 SELECT MIN(occurred_at), MAX(occurred_at), COUNT(*)
@@ -344,5 +348,21 @@ Error: group 'phantom' not found in directory.
 $ echo "Exit code: $?"
 Exit code: 1
 ```
+
+### Automated tests
+
+Run the LDAP test suite from the repository root:
+
+```bash
+python3 -m unittest part2.test_ldap_query -v
+```
+
+Test scenarios covered:
+
+| Scenario | Test | Expected |
+|---|---|---|
+| Successful group lookup | `test_main_prints_group_members` | group header and sorted members printed |
+| Group not found | `test_main_returns_1_when_group_missing` | clear stderr message, exit code 1 |
+| LDAP connection failure | `test_main_returns_1_when_connection_fails` | clear stderr message, exit code 1 |
 
 ---

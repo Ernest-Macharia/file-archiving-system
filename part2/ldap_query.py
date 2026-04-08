@@ -1,16 +1,8 @@
-#!/usr/bin/env python3
 """
 ldap_query.py
 =============
 Query an OpenLDAP directory for members of a posixGroup.
 Prints uid, full name, and home directory for each member.
-
-Usage
------
-    python3 ldap_query.py <group_name>
-
-    python3 ldap_query.py developers
-    python3 ldap_query.py phantom          # exits 1 with clear message
 """
 
 import sys
@@ -18,9 +10,7 @@ import argparse
 import ldap3
 
 
-# ---------------------------------------------------------------------------
 # Config — matches the provided docker-compose.yml for Part 2
-# ---------------------------------------------------------------------------
 
 LDAP_URL   = "ldap://localhost:3389"
 BIND_DN    = "cn=admin,dc=dewcis,dc=com"
@@ -30,9 +20,7 @@ GROUPS_OU  = "ou=groups,dc=dewcis,dc=com"
 USERS_OU   = "ou=users,dc=dewcis,dc=com"
 
 
-# ---------------------------------------------------------------------------
 # LDAP helpers
-# ---------------------------------------------------------------------------
 
 def connect() -> ldap3.Connection:
     """Open and return an authenticated LDAP connection."""
@@ -84,9 +72,7 @@ def fetch_user(conn: ldap3.Connection, uid: str) -> dict | None:
     }
 
 
-# ---------------------------------------------------------------------------
 # Main
-# ---------------------------------------------------------------------------
 
 def main() -> int:
     parser = argparse.ArgumentParser(

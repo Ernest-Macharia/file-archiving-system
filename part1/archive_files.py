@@ -1,22 +1,8 @@
-#!/usr/bin/env python3
 """
 archive_files.py
 ================
 Archive home-directory files for every member of a Linux group.
 All events are persisted to PostgreSQL in real time.
-
-Usage
------
-    python3 archive_files.py --group developers [OPTIONS]
-
-    --group         Linux group name (required)
-    --archive-root  Destination root dir  (default: /archive, or $ARCHIVE_ROOT)
-    --db-host       Postgres host         (default: localhost)
-    --db-port       Postgres port         (default: 5432)
-    --db-name       Database name         (default: archivedb)
-    --db-user       Database user         (default: archiveuser)
-    --db-password   Database password     (default: archivepass)
-    --dry-run       Simulate without moving files
 """
 
 import argparse
@@ -33,10 +19,6 @@ from pathlib import Path
 import psycopg2
 import psycopg2.extras
 
-# ---------------------------------------------------------------------------
-# Logging
-# ---------------------------------------------------------------------------
-
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s  %(levelname)-8s  %(message)s",
@@ -46,9 +28,7 @@ logging.basicConfig(
 log = logging.getLogger("archive_files")
 
 
-# ---------------------------------------------------------------------------
 # Database
-# ---------------------------------------------------------------------------
 
 DDL = """
 CREATE TABLE IF NOT EXISTS archive_runs (
@@ -146,9 +126,7 @@ def finish_run(conn, run_id: int, moved: int, skipped: int, errors: int,
     conn.commit()
 
 
-# ---------------------------------------------------------------------------
 # Archiving logic
-# ---------------------------------------------------------------------------
 
 def resolve_group(group_name: str):
     """Return grp.struct_group or None."""
@@ -234,9 +212,7 @@ def archive_user_files(
     return moved, skipped, errors
 
 
-# ---------------------------------------------------------------------------
 # Argument parsing
-# ---------------------------------------------------------------------------
 
 def parse_args():
     p = argparse.ArgumentParser(
@@ -257,9 +233,7 @@ def parse_args():
     return p.parse_args()
 
 
-# ---------------------------------------------------------------------------
 # Main
-# ---------------------------------------------------------------------------
 
 def main() -> int:
     args = parse_args()
@@ -271,7 +245,7 @@ def main() -> int:
     log.info("Archive root: %s", archive_root)
     log.info("=" * 60)
 
-    # --- Resolve group -------------------------------------------------------
+    # Resolve group
     grp_entry = resolve_group(args.group)
     if grp_entry is None:
         log.error("Group '%s' not found on this system.", args.group)
@@ -285,7 +259,7 @@ def main() -> int:
         log.info("Group has no members. Nothing to do.")
         return 0
 
-    # --- Connect to DB -------------------------------------------------------
+    # Connect to DB
     try:
         conn = get_db_conn(args)
     except psycopg2.OperationalError as exc:
